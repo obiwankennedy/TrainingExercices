@@ -1,2 +1,1 @@
 OTHER_FILES += *.qml
-

@@ -7,4 +7,11 @@ SUBDIRS += 01_premierProg \
             09_properties \
             10_bindings \
             12_animations\
-
+            13_state_machine\
+            14_composant\
+            15_interactivite\
+            16_javascript\
+            17_complexe_items\
+            18_multimedia\
+            19_mvc\
+            23_dessiner
