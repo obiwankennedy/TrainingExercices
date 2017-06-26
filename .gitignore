@@ -3,3 +3,6 @@
 *.qm
 html
 *.o
+*.qmlc
+solution.qml
+*sol.qml
