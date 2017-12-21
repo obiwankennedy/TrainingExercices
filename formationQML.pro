@@ -14,4 +14,5 @@ SUBDIRS += 01_premierProg \
             17_complexe_items\
             18_multimedia\
             19_mvc\
-            23_dessiner
+            23_dessiner\
+            24_websocket
