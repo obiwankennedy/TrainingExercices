@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>Exercice.qml</file>
+        <file>Solution.qml</file>
+    </qresource>
+</RCC>
