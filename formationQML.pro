@@ -1,9 +1,9 @@
 TEMPLATE = subdirs
 
-SUBDIRS += 01_premierProg \
+SUBDIRS +=  00_qtcreator \
+            01_premierProg \
             02_elements \
             03_positionnement \
-            06_qtcreator \
             09_properties \
             10_bindings \
             12_animations\
@@ -15,4 +15,4 @@ SUBDIRS += 01_premierProg \
             18_multimedia\
             19_mvc\
             23_dessiner\
-            24_websocket
+           # 24_websocket

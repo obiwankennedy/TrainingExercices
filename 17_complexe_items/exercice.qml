@@ -1,76 +1,75 @@
-import QtQuick 2.0
-import QtQuick.Window 2.0
-import QtQuick.Controls 2.1
-import QtQuick.Controls 1.4 as QQC
-import QtQuick.Layouts 1.1
+import QtQuick 2.12
+import QtQuick.Window 2.12
+import QtQuick.Controls 2.12
+import QtQuick.Layouts 1.3
 
 ApplicationWindow {
     id: item1
-    width: 1000
+    width: 800
     height: 800
     visible: true
 
     header: ToolBar {
         RowLayout {
-              anchors.fill: parent
-              ToolButton {
-                  text: qsTr("\u25C0 %1").arg(Qt.application.name)
-                  enabled: stack.depth > 1
-                  onClicked: stack.pop()
-              }
-              Item { Layout.fillWidth: true }
-              Switch {
-                  checked: true
-                  text: qsTr("Wifi:")
-              }
-          }
+            anchors.fill: parent
+            ToolButton {
+                text: qsTr("File")
+                onClicked: menuFile.open()
+                Menu {
+                    id: menuFile
+                    y: parent.height
+                    MenuItem {
+                        text: qsTr("New...")
+                    }
+                    MenuItem {
+                        text: qsTr("Open...")
+                    }
+                    MenuItem {
+                        text: qsTr("Save")
+                    }
+                }
+            }
+            Item { Layout.fillWidth: true }
+            Switch {
+                checked: true
+                text: qsTr("Wifi:")
+            }
         }
+    }
 
     StackView {
-              id: stack
-              anchors.fill: parent
-              initialItem: page
-          }
+        id: stack
+        anchors.fill: parent
+        initialItem: page1
+    }
 
-    QQC.ScrollView {
-        id: page
-        implicitWidth: 640
-        implicitHeight: 200
-
-        horizontalScrollBarPolicy: Qt.ScrollBarAlwaysOff
-
-        Item {
-            id: content
-
-            width: Math.max(page.viewport.width, grid.implicitWidth + 2 * grid.rowSpacing)
-            height: Math.max(page.viewport.height, grid.implicitHeight + 2 * grid.columnSpacing)
-
+    Component {
+        id: page1
+        ScrollView {
+            id: scrollPage1
+            ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
             GridLayout {
                 id: grid
-
-                anchors.top: parent.top
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.leftMargin: grid.rowSpacing
-                anchors.rightMargin: grid.rowSpacing
-                anchors.topMargin: grid.columnSpacing
-
-                columns: page.width < page.height ? 1 : 2
-
+                columns: scrollPage1.width < scrollPage1.height ? 1 : 2
+                width: scrollPage1.width
                 GroupBox {
                     title: "Button"
                     Layout.fillWidth: true
                     Layout.columnSpan: grid.columns
                     RowLayout {
                         anchors.fill: parent
-                        QQC.Button { text: "OK"; isDefault: true }
+                        implicitWidth: 8000
+                        Button { text: "OK"; }
                         Button { text: "Cancel" }
                         Item { Layout.fillWidth: true }
-                        QQC.Button {
+                        Button {
                             text: "Attach"
-                            menu: QQC.Menu {
-                                QQC.MenuItem { text: "Image" }
-                                QQC.MenuItem { text: "Document" }
+                            onClicked: menu.open()
+                            Menu {
+                                id: menu
+                                y: parent.height
+                                MenuItem { text: "Image" }
+                                MenuItem { text: "Document" }
                             }
                         }
                     }
@@ -90,12 +89,13 @@ ApplicationWindow {
                 GroupBox {
                     title: "RadioButton"
                     Layout.fillWidth: true
+                    ButtonGroup { id: radioGroup ; buttons: columnbis.children}
                     ColumnLayout {
+                        id: columnbis
                         anchors.fill: parent
-                        QQC.ExclusiveGroup { id: radioGroup }
-                        QQC.RadioButton { text: "Portrait"; exclusiveGroup: radioGroup }
-                        QQC.RadioButton { text: "Landscape"; exclusiveGroup: radioGroup }
-                        QQC.RadioButton { text: "Automatic"; exclusiveGroup: radioGroup; checked: true }
+                        RadioButton { text: "Portrait";  }
+                        RadioButton { text: "Landscape";  }
+                        RadioButton { text: "Automatic"; checked: true }
                     }
                 }
 
@@ -115,32 +115,18 @@ ApplicationWindow {
                         }
                     }
                 }
+
             }
         }
     }
 
-    QQC.ScrollView {
+    Component {
         id: page2
-        visible: false
-        implicitWidth: 640
-        implicitHeight: 400
-
-        horizontalScrollBarPolicy: Qt.ScrollBarAlwaysOff
-
-        Item {
-            id: content2
-
-            width: Math.max(page.viewport.width, column.implicitWidth + 2 * column.spacing)
-            height: Math.max(page.viewport.height, column.implicitHeight + 2 * column.spacing)
-
+        ScrollView {
+            ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
             ColumnLayout {
                 id: column
-
-                anchors.top: parent.top
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.margins: column.spacing
-
+                width: scrollPage2.width
                 GroupBox {
                     title: "TextField"
                     Layout.fillWidth: true
@@ -161,7 +147,6 @@ ApplicationWindow {
                             Layout.fillWidth: true
                         }
                         ComboBox {
-                            //editable: true
                             model: ListModel {
                                 id: listModel
                                 ListElement { text: "Apple" }
@@ -181,7 +166,6 @@ ApplicationWindow {
                     ColumnLayout {
                         anchors.fill: parent
                         SpinBox { value: 99; Layout.fillWidth: true; z: 1 }
-                        QQC.SpinBox { decimals: 2; Layout.fillWidth: true }
                     }
                 }
             }

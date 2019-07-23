@@ -9,3 +9,4 @@ RESOURCES += \
 
 TARGET = complexeItem
 TEMPLATE += app
+OTHER_FILES += *.qml
