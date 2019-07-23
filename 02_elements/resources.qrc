@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>HelloWorld.qml</file>
+        <file>main.qml</file>
+        <file>solution.qml</file>
+        <file>Types.qml</file>
+        <file>logo.png</file>
+    </qresource>
+</RCC>
